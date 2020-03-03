@@ -40,92 +40,97 @@ namespace WindowsFormsMasterMindDmm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            guess[0] = (int)numericUpDown1.Value;
-            guess[1] = (int)numericUpDown2.Value;
-            guess[2] = (int)numericUpDown3.Value;
-            guess[3] = (int)numericUpDown4.Value;
-
-            answerKey[0] = answerKey[1] = answerKey[2] = answerKey[3] = guessKey[0] = guessKey[1] = guessKey[2] = guessKey[3] = A_SPACE;
-
-            if (compareAnswerAndGuess())
+            try
             {
+                guess[0] = (int)numericUpDown1.Value;
+                guess[1] = (int)numericUpDown2.Value;
+                guess[2] = (int)numericUpDown3.Value;
+                guess[3] = (int)numericUpDown4.Value;
 
-                //labelFinalOutcome.Visible = true;
-                //labelFinalOutcome.Text = String.Format("Combination found, you are a BIG WINNER!!!");
+                answerKey[0] = answerKey[1] = answerKey[2] = answerKey[3] = guessKey[0] = guessKey[1] = guessKey[2] = guessKey[3] = A_SPACE;
 
-                MessageBox.Show("Combination found, you are a BIG WINNER!!!", "", MessageBoxButtons.OK);
-                Application.Exit();
-            }
-            else
-            {
-                ++attempts;
-                labelAttemptsLeft.Text = String.Format("{0} Attempts left", MAX_ATTEMPTS - attempts);
-                progressBar1.Value = MAX_ATTEMPTS - attempts;
-
-                switch (guessKey[0])
+                if (compareAnswerAndGuess())
                 {
-                    case A_SPACE:
-                        label1.Visible = false;
-                        break;
-                    case PLUS:
-                        label1.Visible = true;
-                        label1.Text = "+";
-                        break;
-                    case MINUS:
-                        label1.Visible = true;
-                        label1.Text = "-";
-                        break;
+
+                    MessageBox.Show("Combination found, you are a BIG WINNER!!!", "", MessageBoxButtons.OK);
+                    Application.Exit();
                 }
-                switch (guessKey[1])
+                else
                 {
-                    case A_SPACE:
-                        label2.Visible = false;
-                        break;
-                    case PLUS:
-                        label2.Visible = true;
-                        label2.Text = "+";
-                        break;
-                    case MINUS:
-                        label2.Visible = true;
-                        label2.Text = "-";
-                        break;
-                }
-                switch (guessKey[2])
-                {
-                    case A_SPACE:
-                        label3.Visible = false;
-                        break;
-                    case PLUS:
-                        label3.Visible = true;
-                        label3.Text = "+";
-                        break;
-                    case MINUS:
-                        label3.Visible = true;
-                        label3.Text = "-";
-                        break;
-                } //end switch (guessKey[2]
-                switch (guessKey[3])
-                {
-                    case A_SPACE:
-                        label4.Visible = false;
-                        break;
-                    case PLUS:
-                        label4.Visible = true;
-                        label4.Text = "+";
-                        break;
-                    case MINUS:
-                        label4.Visible = true;
-                        label4.Text = "-";
-                        break;
-                }// end switch (guessKey[3])
-            } //end else
+                    ++attempts;
+                    labelAttemptsLeft.Text = String.Format("{0} Attempts left", MAX_ATTEMPTS - attempts);
+                    progressBar1.Value = MAX_ATTEMPTS - attempts;
 
-            if (attempts > 9)
+                    switch (guessKey[0])
+                    {
+                        case A_SPACE:
+                            label1.Visible = false;
+                            break;
+                        case PLUS:
+                            label1.Visible = true;
+                            label1.Text = "+";
+                            break;
+                        case MINUS:
+                            label1.Visible = true;
+                            label1.Text = "-";
+                            break;
+                    }
+                    switch (guessKey[1])
+                    {
+                        case A_SPACE:
+                            label2.Visible = false;
+                            break;
+                        case PLUS:
+                            label2.Visible = true;
+                            label2.Text = "+";
+                            break;
+                        case MINUS:
+                            label2.Visible = true;
+                            label2.Text = "-";
+                            break;
+                    }
+                    switch (guessKey[2])
+                    {
+                        case A_SPACE:
+                            label3.Visible = false;
+                            break;
+                        case PLUS:
+                            label3.Visible = true;
+                            label3.Text = "+";
+                            break;
+                        case MINUS:
+                            label3.Visible = true;
+                            label3.Text = "-";
+                            break;
+                    } //end switch (guessKey[2]
+                    switch (guessKey[3])
+                    {
+                        case A_SPACE:
+                            label4.Visible = false;
+                            break;
+                        case PLUS:
+                            label4.Visible = true;
+                            label4.Text = "+";
+                            break;
+                        case MINUS:
+                            label4.Visible = true;
+                            label4.Text = "-";
+                            break;
+                    }// end switch (guessKey[3])
+                } //end else
+
+                if (attempts > 9)
+                {
+                    String msg = String.Format("You've lost, your guesses have expired.  The combination was {0} {1} {2} {3}", answer[0], answer[1], answer[2], answer[3]);
+                    MessageBox.Show(msg, "", MessageBoxButtons.OK);
+                    Application.Exit();
+                }
+            } //end try
+            catch (Exception e1)
             {
-                String msg = String.Format("You've lost, your guesses have expired.  The combination was {0} {1} {2} {3}", answer[0], answer[1], answer[2], answer[3]);
-                MessageBox.Show(msg, "", MessageBoxButtons.OK);
+                MessageBox.Show(e1.Message, "Exception Occurred", MessageBoxButtons.OK);
                 Application.Exit();
-            }
+            } //end catch (Exception e)
 
         } //end private void button1_Click(object sender, EventArgs e)
 
